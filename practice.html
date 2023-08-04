@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script>
+    window.onload = function(){
+        //1. ID를 입력 후 다음 양식으로 커서를 옮기면 입력한 ID를 자동으로 대문자로 변경
+        const id = document.querySelector("input");
+        id.addEventListener("change", e => {
+            e.target.value = e.target.value.toString().toUpperCase();
+        });
+
+        //2. Email이 제대로 입력됐는지 체크, 잘못 입력됐을 경우 "올바르게 입력하세요." 메세지 출력
+        const email = Array.from(document.querySelectorAll("input"))[1];
+        email.addEventListener("change", e =>{
+            if(!(e.target.value.match(/.+@.+\.com/g))){
+                alert("올바르게 입력하세요.");
+            };
+        });
+        
+        //3. 패스워드에 반드시 4글자 이상 입력되도록 한다.
+        const pw = Array.from(document.querySelectorAll("input"))[2];
+        pw.addEventListener("change", e =>{
+            if(e.target.value.length < 4){
+                alert("비밀번호를 4글자 이상 입력해주세요.")
+            };
+        });
+
+        //4. 주민번호 뒷자리의 첫글자가 1 또는 3이면 남자 라디오 버튼에 자동으로 체크 되도록 하기(2, 4일 경우 여자)
+        const ssn2 =  Array.from(document.querySelectorAll("input"))[4];
+        const male = Array.from(document.querySelectorAll("input"))[5];
+        const female = Array.from(document.querySelectorAll("input"))[6];
+        ssn2.addEventListener("change", e =>{
+            if(e.target.value === '1' || e.target.value === '3'){
+                male.checked = "true";
+            }else if(e.target.value === '2' || e.target.value === '4'){
+                female.checked = "true";
+            }
+        });
+
+        // 5. 각 항 공통으로 값을 입력하지 않으면 "반드시 값을 입력" 메시지 출력 ( 함수로 만들기 )
+        
+    }
+</script>
+<body>
+    <form name="f">
+        ID : <input type="text" name="id"/><br><br>
+        E-mail : <input type="text" name="email"/><br><br>
+        password: <input type="password" name="pw"/><br><br>
+        주민번호:<input type="text" name="ssn1" />
+        - <input type="text" name="ssn2" /><br><br>
+        남자<input type="radio" name="gender" value="남자" disabled/><br>
+        여자<input type="radio" name="gender" value="여자"disabled/><br><br>
+        주소 :<input type="text" name="addr"/>
+        <input type="button" value="전송" id="btnSubmit"/>
+        </form>
+</body>
+</html>
