@@ -16,6 +16,7 @@
         //2. Email이 제대로 입력됐는지 체크, 잘못 입력됐을 경우 "올바르게 입력하세요." 메세지 출력
         const email = Array.from(document.querySelectorAll("input"))[1];
         email.addEventListener("change", e =>{
+          // let regex = new RegExp('[a-z0-9]+@[a-z]+\.[a-z]{2,3}'); <-- 이메일 정규식
             if(!(e.target.value.match(/.+@.+\.com/g))){
                 alert("올바르게 입력하세요.");
             };
@@ -34,16 +35,27 @@
         const male = Array.from(document.querySelectorAll("input"))[5];
         const female = Array.from(document.querySelectorAll("input"))[6];
         ssn2.addEventListener("change", e =>{
-            if(e.target.value === '1' || e.target.value === '3'){
+            if(e.target.value.match(/1\d{6}/g) || e.target.value.match(/3\d{6}/g)) {
                 male.checked = "true";
-            }else if(e.target.value === '2' || e.target.value === '4'){
+            }else if(e.target.value.match(/2\d{6}/g) || e.target.value.match(/4\d{6}/g)) {
                 female.checked = "true";
             }
         });
 
         // 5. 각 항 공통으로 값을 입력하지 않으면 "반드시 값을 입력" 메시지 출력 ( 함수로 만들기 )
+        const btn= document.getElementById("btnSubmit");
+        const form = document.querySelector("form");
+
+        btn.addEventListener("click", (e) =>{
+          console.log(e.target.value);
+          (Array.from(form)).forEach(ev => {
+            if(ev.value.length===0){
+              alert(`${ev.name} 입력 필수`);
+            };
+          });
         
-    }
+        });
+        }
 </script>
 <body>
     <form name="f">
